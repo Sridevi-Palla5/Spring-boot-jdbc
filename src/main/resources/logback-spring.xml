@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Console Appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Rolling File Appender -->
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/application.log</file> <!-- Log file location -->
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/application-%d{yyyy-MM-dd}.log</fileNamePattern> <!-- Daily log rotation -->
+            <maxHistory>7</maxHistory> <!-- Keep logs for the last 7 days -->
+            <totalSizeCap>100MB</totalSizeCap> <!-- Limit total size of log files -->
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set logging levels -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="com.infomerica" level="DEBUG"/> <!-- Change this to match your package -->
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </root>
+
+</configuration>
